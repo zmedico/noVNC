@@ -75,6 +75,7 @@ start: function(callback) {
     UI.initSetting('password', '');
     UI.initSetting('encrypt', (window.location.protocol === "https:"));
     UI.initSetting('true_color', true);
+    UI.initSetting('raw_encoding', false);
     UI.initSetting('cursor', false);
     UI.initSetting('shared', true);
     UI.initSetting('view_only', false);
@@ -353,6 +354,7 @@ toggleSettingsPanel: function() {
     } else {
         UI.updateSetting('encrypt');
         UI.updateSetting('true_color');
+        UI.updateSetting('raw_encoding');
         if (UI.rfb.get_display().get_cursor_uri()) {
             UI.updateSetting('cursor');
         } else {
@@ -405,6 +407,7 @@ settingsApply: function() {
     //Util.Debug(">> settingsApply");
     UI.saveSetting('encrypt');
     UI.saveSetting('true_color');
+    UI.saveSetting('raw_encoding')
     if (UI.rfb.get_display().get_cursor_uri()) {
         UI.saveSetting('cursor');
     }
@@ -514,6 +517,7 @@ updateVisualState: function() {
     //Util.Debug(">> updateVisualState");
     $D('noVNC_encrypt').disabled = connected;
     $D('noVNC_true_color').disabled = connected;
+    $D('noVNC_raw_encoding').disabled = connected;
     if (UI.rfb && UI.rfb.get_display() &&
         UI.rfb.get_display().get_cursor_uri()) {
         $D('noVNC_cursor').disabled = connected;
@@ -590,6 +594,7 @@ connect: function() {
 
     UI.rfb.set_encrypt(UI.getSetting('encrypt'));
     UI.rfb.set_true_color(UI.getSetting('true_color'));
+    UI.rfb.set_raw_encoding(UI.getSetting('raw_encoding'));
     UI.rfb.set_local_cursor(UI.getSetting('cursor'));
     UI.rfb.set_shared(UI.getSetting('shared'));
     UI.rfb.set_view_only(UI.getSetting('view_only'));
